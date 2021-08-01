@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Platform
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - Player
+  - Camera
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 3550390013
+    locked: 0
+  - name: Foreground
+    uniqueID: 3971156791
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Buildings
+    uniqueID: 2443324241
+    locked: 0
+  - name: Ground
+    uniqueID: 3812867501
+    locked: 0
+  - name: Environment_Back
+    uniqueID: 128233747
+    locked: 0
+  - name: Player
+    uniqueID: 1127194613
+    locked: 0
+  - name: Front
+    uniqueID: 3801734409
+    locked: 0
+  - name: Environment_front
+    uniqueID: 2387523497
+    locked: 0
+  - name: canvasFront
+    uniqueID: 1967602249
+    locked: 0
