@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChallangeGroundUp : MonoBehaviour
 {
     private bool valid;
+    private bool oneTime;
     [SerializeField] private PlayerSinging playerSinging;
     [SerializeField] private float speed;
     [SerializeField] private Transform transform;
@@ -15,15 +16,21 @@ public class ChallangeGroundUp : MonoBehaviour
 
     private void Start()
     {
-        singOrHumming.SetActive(false);
+        SingHum(false);
         oldPosition = transform.position;
+    }
+
+    private void SingHum(bool validasi)
+    {
+        if (singOrHumming != null)
+            singOrHumming.SetActive(validasi);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player")
         {
-            singOrHumming.SetActive(true);
+            SingHum(true);
             valid = true;
         }
     }
@@ -40,7 +47,7 @@ public class ChallangeGroundUp : MonoBehaviour
     {
         if (valid)
         {
-            if (playerSinging.valPitch > 0)
+            if (playerSinging.valPitch > 0 && singOrHumming != null)
                 singOrHumming.SetActive(false);
             Physics2D.SyncTransforms();
             float yPosition = Mathf.Min(oldPosition.y + (playerSinging.valPitch / 35), oldPosition.y+maxY);
