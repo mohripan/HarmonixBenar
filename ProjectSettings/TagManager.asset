@@ -51,6 +51,9 @@ TagManager:
   - name: Buildings
     uniqueID: 2443324241
     locked: 0
+  - name: Challange_Back
+    uniqueID: 3147800903
+    locked: 0
   - name: Ground
     uniqueID: 3812867501
     locked: 0
