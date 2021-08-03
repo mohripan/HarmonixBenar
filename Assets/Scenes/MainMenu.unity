@@ -947,7 +947,7 @@ PrefabInstance:
       objectReference: {fileID: 760458194}
     - target: {fileID: 4271294343974532373, guid: d42a5a615bca7ab40bc15f3119d9cf40, type: 3}
       propertyPath: animTime
-      value: 0.45
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d42a5a615bca7ab40bc15f3119d9cf40, type: 3}
