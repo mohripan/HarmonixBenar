@@ -30,7 +30,7 @@ public class ChallangeGroundUp : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            SingHum(true);
+            SingHum(!oneTime);
             valid = true;
         }
     }
@@ -39,6 +39,7 @@ public class ChallangeGroundUp : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
+            SingHum(false);
             valid = false;
         }
     }
@@ -48,7 +49,10 @@ public class ChallangeGroundUp : MonoBehaviour
         if (valid)
         {
             if (playerSinging.valPitch > 0 && singOrHumming != null)
+            {
+                oneTime = true;
                 singOrHumming.SetActive(false);
+            }
             Physics2D.SyncTransforms();
             float yPosition = Mathf.Min(oldPosition.y + (playerSinging.valPitch / 35), oldPosition.y+maxY);
             Vector2 groundUp = new Vector2(oldPosition.x, yPosition);
