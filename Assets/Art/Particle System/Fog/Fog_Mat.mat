@@ -40,5 +40,5 @@ Material:
     m_Colors:
     - Color_26f95e0729cb405b82bf45eb569885fb: {r: 0, g: 0, b: 0, a: 0}
     - Color_56e04e56afc1446ea7b2c27ffeabf767: {r: 1, g: 1, b: 1, a: 0}
-    - _FogSpeed: {r: 1, g: 0, b: 0, a: 0}
+    - _FogSpeed: {r: 0.5, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
