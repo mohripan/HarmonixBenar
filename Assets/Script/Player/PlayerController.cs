@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(PhysicsObject))]
 public class PlayerController : PhysicsObject
 {
+    public ParticleSystem dust;
+
     public float maxSpeed = 7;
     public float jumpTakeOffSpeed = 7;
 
@@ -30,6 +32,7 @@ public class PlayerController : PhysicsObject
         if (Input.GetButtonDown("Jump") && grounded)
         {
             velocity.y = jumpTakeOffSpeed;
+            CreateDust();
         }
         else if (Input.GetButtonUp("Jump"))
         {
@@ -48,5 +51,10 @@ public class PlayerController : PhysicsObject
         animator.SetFloat("moveX", Mathf.Abs(velocity.x) / maxSpeed);
 
         targetVelocity = isOnSlope ? maxSpeed*slopeNormalPerpendicullar.x*-move : move*maxSpeed;
+    }
+
+    void CreateDust()
+    {
+        dust.Play();
     }
 }
