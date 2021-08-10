@@ -11645,6 +11645,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1257662021, guid: d09e2ca677efac54b8049f50ce0a8ee6, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1257662022, guid: d09e2ca677efac54b8049f50ce0a8ee6, type: 3}
+      propertyPath: clips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1257662022, guid: d09e2ca677efac54b8049f50ce0a8ee6, type: 3}
+      propertyPath: clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a84637243cd3b6d4dbfa0e6c5288b0dc, type: 3}
+    - target: {fileID: 1257662022, guid: d09e2ca677efac54b8049f50ce0a8ee6, type: 3}
+      propertyPath: clips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 547890d4a34289b40b616330b68538b3, type: 3}
     - target: {fileID: 6641085896010219098, guid: d09e2ca677efac54b8049f50ce0a8ee6, type: 3}
       propertyPath: m_Name
       value: Player
