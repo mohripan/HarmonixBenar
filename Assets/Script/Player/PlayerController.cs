@@ -65,7 +65,7 @@ public class PlayerController : PhysicsObject
         targetVelocity = isOnSlope ? maxSpeed*slopeNormalPerpendicullar.x*-move : move*maxSpeed;
     }
 
-    void CreateDust()
+    private void CreateDust()
     {
         dust.Play();
     }
