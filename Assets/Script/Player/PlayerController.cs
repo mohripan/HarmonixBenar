@@ -13,6 +13,7 @@ public class PlayerController : PhysicsObject
     internal Animator animator;
 
     private SpriteRenderer spriteRenderer;
+    private bool valid;
     [SerializeField] private GameObject shadow;
 
     private void Awake()
@@ -21,18 +22,29 @@ public class PlayerController : PhysicsObject
         animator = GetComponent<Animator>();
     }
 
+    private void LandingSound()
+    {
+        if (grounded && !valid)
+        {
+            valid = true;
+            GetComponentInChildren<PlayFootstepSounds>().PlayClip();
+        }
+    }
+
     protected override void ComputeVelocity()
     {
-
         shadow.SetActive(grounded);
+        LandingSound();
         Vector2 move = Vector2.zero;
 
         move.x = Input.GetAxisRaw("Horizontal");
 
         if (Input.GetButtonDown("Jump") && grounded)
         {
+            valid = false;
             velocity.y = jumpTakeOffSpeed;
             CreateDust();
+            GetComponentInChildren<PlayFootstepSounds>().PlayClip();
         }
         else if (Input.GetButtonUp("Jump"))
         {
@@ -53,7 +65,7 @@ public class PlayerController : PhysicsObject
         targetVelocity = isOnSlope ? maxSpeed*slopeNormalPerpendicullar.x*-move : move*maxSpeed;
     }
 
-    void CreateDust()
+    private void CreateDust()
     {
         dust.Play();
     }

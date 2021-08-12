@@ -22,6 +22,6 @@ public class RainPositionParticle : MonoBehaviour
 
     private void Update()
     {
-        editableShape.position = new Vector3(playerPosition.position.x+plusPosition, 0,0);
+        editableShape.position = new Vector3(playerPosition.position.x+plusPosition, playerPosition.position.y+8,0);
     }
 }
