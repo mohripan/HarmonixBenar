@@ -5,10 +5,12 @@ using UnityEngine;
 public class ChallangeGroundUp : MonoBehaviour
 {
     private bool valid;
+    private float previousGravity;
     [SerializeField] private PlayerSinging playerSinging;
     [SerializeField] private float speed;
     [SerializeField] private Transform transformer;
     [SerializeField] private float maxY;
+    [SerializeField] private PlayerVelocity playerVelocity;
 
     private Vector2 oldPosition;
 
@@ -16,8 +18,6 @@ public class ChallangeGroundUp : MonoBehaviour
     {
         oldPosition = transformer.position;
     }
-
-    
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -40,6 +40,7 @@ public class ChallangeGroundUp : MonoBehaviour
         if (valid)
         {
             Physics2D.SyncTransforms();
+
             float yPosition = Mathf.Min(oldPosition.y + (playerSinging.valPitch / 35), oldPosition.y+maxY);
             Vector2 groundUp = new Vector2(oldPosition.x, yPosition);
 

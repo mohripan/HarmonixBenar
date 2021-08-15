@@ -26,38 +26,42 @@ public class PlayerVelocity : MonoBehaviour
 	[SerializeField] private float wallStickTime = .25f;
 
 	private float timeToWallUnstick;
-	private float gravity;
+	internal float gravity;
 	private float maxJumpVelocity;
 	private float minJumpVelocity;
 	private Vector3 velocity;
 	private Vector3 oldVelocity;
 	private float velocityXSmoothing;
 
-	private Movement playerMovement;
+	internal Movement playerMovement;
 
-	private Vector2 directionalInput;
+	internal Vector2 directionalInput;
 	private bool wallContact;
 	private int wallDirX;
+	private PlayerAnimation playerAnim;
 
-	void Start()
-	{
+	private SpriteRenderer sprite;
+
+    private void Awake()
+    {
+		playerAnim = GetComponent<PlayerAnimation>();
+		sprite = GetComponent<SpriteRenderer>();
 		playerMovement = GetComponent<Movement>();
+	}
 
-		// see suvat calculations; s = ut + 1/2at^2, v^2 = u^2 + 2at, where u=0, scalar looking at only y dir
+    private void Start()
+	{
 		gravity = -(2 * maxJumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 		maxJumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
 		minJumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(gravity) * minJumpHeight);
 	}
 
-	void Update()
+	private void Update()
 	{
 		CalculateVelocity();
 		HandleWallSliding();
 
-		// r = r0 + 1/2(v+v0)t, note Vector version used here
-		// displacement = 1/2(v+v0)t since the playerMovementController uses Translate which moves from r0
 		Vector3 displacement = (velocity + oldVelocity) * 0.5f * Time.deltaTime;
-		// Move player using movement controller which checks for collisions then applies correct transform (displacement) translation
 		playerMovement.Move(displacement, directionalInput);
 
 		bool verticalCollision = playerMovement.collisionDirection.above || playerMovement.collisionDirection.below;
@@ -75,18 +79,24 @@ public class PlayerVelocity : MonoBehaviour
 		}
 	}
 
-	void CalculateVelocity()
+	private void CalculateVelocity()
 	{
 		// suvat; s = ut, note a=0
 		float targetVelocityX = directionalInput.x * moveSpeed;
+		playerAnim.SetMoveX(Mathf.Abs(directionalInput.x));
 		oldVelocity = velocity;
-		// ms when player is on the ground faster vs. in air
+		if(directionalInput.x != 0)
+        {
+			sprite.flipX = directionalInput.x >= 0 ? false : true;
+        }
+
 		float smoothTime = (playerMovement.collisionDirection.below) ? accelerationTimeGrounded : accelerationTimeAirborne;
+		playerAnim.SetIsGrounded(playerMovement.collisionDirection.below);
 		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, smoothTime);
         velocity.y += gravity * Time.deltaTime;
     }
 
-	void HandleWallSliding()
+	private void HandleWallSliding()
 	{
 		wallDirX = (playerMovement.collisionDirection.left) ? -1 : 1;
 		bool horizontalCollision = playerMovement.collisionDirection.left || playerMovement.collisionDirection.right;

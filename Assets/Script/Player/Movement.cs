@@ -103,7 +103,13 @@ public class Movement : BoxColliderCasts
             RaycastHit2D hit = results[i];
             if (hit)
             {
-                if (hit.collider.tag == "Through")
+				Debug.Log(hit.collider);
+				if (hit.collider != null && hit.collider.tag == "Platform")
+				{
+					transform.parent = hit.transform;
+				}
+
+				if (hit.collider.tag == "Through")
                 {
                     continue;
                 }

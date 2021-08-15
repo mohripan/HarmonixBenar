@@ -10,7 +10,7 @@ public class PlayerSinging : MonoBehaviour
 
     [SerializeField] private MicrophonePitchDetector pitchDetector;
     [SerializeField] private float dbThres = -40;
-    private Animator anim;
+    private PlayerAnimation playerAnim;
 
     private Queue<PitchTime> drawQueue = new Queue<PitchTime>();
 
@@ -29,7 +29,7 @@ public class PlayerSinging : MonoBehaviour
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        playerAnim = GetComponent<PlayerAnimation>();
     }
 
     private void Start()
@@ -45,7 +45,7 @@ public class PlayerSinging : MonoBehaviour
         //Debug.Log("detected " + pitchList.Count + " values from " + samples + " samples, db:" + db);
         //Debug.Log(midis.NoteString());
 
-        anim.SetBool("isSinging", db > dbThres);
+        playerAnim.SetIsSinging(db > dbThres);
 
         if (pitchList.Count > 0 && db > dbThres)
         {

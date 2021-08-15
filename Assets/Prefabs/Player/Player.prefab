@@ -4992,7 +4992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.332
   m_Color: {r: 0.5284354, g: 0.8962264, b: 0.7995326, a: 1}
   m_Intensity: 1.5
   m_LightVolumeOpacity: 0
@@ -5006,7 +5006,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
-  m_PointLightOuterRadius: 8.87
+  m_PointLightOuterRadius: 8
   m_PointLightDistance: 3
   m_PointLightQuality: 1
   m_ShapeLightParametricSides: 5
@@ -5117,6 +5117,8 @@ GameObject:
   - component: {fileID: 118078609}
   - component: {fileID: 118078610}
   - component: {fileID: 118078611}
+  - component: {fileID: 2600005342717566262}
+  - component: {fileID: 118078616}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -5244,7 +5246,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.01874119, y: -0.3419621}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5255,7 +5257,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.56, y: 4.82}
+  m_Size: {x: 1.1356021, y: 3.327004}
   m_EdgeRadius: 0
 --- !u!114 &118078609
 MonoBehaviour:
@@ -5282,7 +5284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  maxJumpHeight: 4
+  maxJumpHeight: 3
   minJumpHeight: 1
   timeToJumpApex: 0.4
   accelerationTimeAirborne: 0.2
@@ -5321,6 +5323,39 @@ MonoBehaviour:
   slidingDownMaxSlope: 0
   forceFall: 0
   maxSlopeAngle: 80
+--- !u!50 &2600005342717566262
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6641085896010219098}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
+--- !u!114 &118078616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6641085896010219098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f52e2212658fd44aca28092121fbca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6641085896748089995
 GameObject:
   m_ObjectHideFlags: 0
@@ -5420,11 +5455,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 468922198639788312, guid: ee10f72fddb98184f8edbf46b9d4f09e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 60
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 468922198639788312, guid: ee10f72fddb98184f8edbf46b9d4f09e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 60
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 468922198639788312, guid: ee10f72fddb98184f8edbf46b9d4f09e, type: 3}
       propertyPath: m_LocalPosition.x
