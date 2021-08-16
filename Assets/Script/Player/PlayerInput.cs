@@ -16,17 +16,17 @@ public class PlayerInput : MonoBehaviour
 		Vector2 directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
 		playerVelocity.SetDirectionalInput(directionalInput);
 
-		if (Input.GetKeyDown(KeyCode.W))
+		if (Input.GetButtonDown("Jump"))
 		{
 			playerVelocity.OnJumpInputDown();
 		}
-		if (Input.GetKeyUp(KeyCode.W))
+		if (Input.GetButtonUp("Jump"))
 		{
 			playerVelocity.OnJumpInputUp();
 		}
-		if (Input.GetKeyDown(KeyCode.S))
-		{
-			playerVelocity.OnFallInputDown();
-		}
+		//if (Input.GetKeyDown(KeyCode.S))
+		//{
+		//	playerVelocity.OnFallInputDown();
+		//}
 	}
 }

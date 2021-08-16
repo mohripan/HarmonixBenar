@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyUI : MonoBehaviour
 {
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] private PlayerVelocity playerVelocity;
 
     private bool performance;
 
@@ -17,7 +17,7 @@ public class KeyUI : MonoBehaviour
     {
         if(!performance)
         {
-            if (playerController.grounded)
+            if (playerVelocity.playerMovement.collisionDirection.below)
             {
                 transform.localScale = new Vector3(1, 1, 1);
                 performance = true;
@@ -25,7 +25,7 @@ public class KeyUI : MonoBehaviour
         }
         else
         {
-            if (playerController.animator.GetFloat("moveX") != 0)
+            if (playerVelocity.directionalInput.x != 0)
             {
                 gameObject.SetActive(false);
             }
