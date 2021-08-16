@@ -81,7 +81,6 @@ public class PlayerVelocity : MonoBehaviour
 
 	private void CalculateVelocity()
 	{
-		// suvat; s = ut, note a=0
 		float targetVelocityX = directionalInput.x * moveSpeed;
 		playerAnim.SetMoveX(Mathf.Abs(directionalInput.x));
 		oldVelocity = velocity;

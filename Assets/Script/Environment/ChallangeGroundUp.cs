@@ -5,7 +5,6 @@ using UnityEngine;
 public class ChallangeGroundUp : MonoBehaviour
 {
     private bool valid;
-    private float previousGravity;
     [SerializeField] private PlayerSinging playerSinging;
     [SerializeField] private float speed;
     [SerializeField] private Transform transformer;
@@ -37,18 +36,28 @@ public class ChallangeGroundUp : MonoBehaviour
 
     private void Update()
     {
-        if (valid)
+        ClassificationTrigger();
+    }
+
+    private void ClassificationTrigger()
+    {
+        if (valid && playerVelocity.playerMovement.collisionDirection.below)
         {
-            Physics2D.SyncTransforms();
-
-            float yPosition = Mathf.Min(oldPosition.y + (playerSinging.valPitch / 35), oldPosition.y+maxY);
-            Vector2 groundUp = new Vector2(oldPosition.x, yPosition);
-
-            transformer.position = Vector2.MoveTowards(transformer.position, groundUp, speed * Time.deltaTime);
+            CalculatePlatform();
         }
         else
         {
             transformer.position = Vector2.MoveTowards(transformer.position, oldPosition, speed * Time.deltaTime);
         }
+    }
+
+    private void CalculatePlatform()
+    {
+        Physics2D.SyncTransforms();
+
+        float yPosition = Mathf.Min(oldPosition.y + (playerSinging.valPitch / 35), oldPosition.y + maxY);
+        Vector2 groundUp = new Vector2(oldPosition.x, yPosition);
+
+        transformer.position = Vector2.MoveTowards(transformer.position, groundUp, speed * Time.deltaTime);
     }
 }
