@@ -1,12 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class GameplayTwoEnvi : MonoBehaviour
 {
-    private bool valid;
+    public static GameplayTwoEnvi instance { get; private set; }
+    internal bool valid;
     [SerializeField] private Animator anim;
-    [SerializeField] private Transform player;
+    [SerializeField] private Animator cinemachineAnim;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -14,6 +24,7 @@ public class GameplayTwoEnvi : MonoBehaviour
         {
             valid = true;
             anim.SetBool("isIn", true);
+            cinemachineAnim.SetBool("isIn", true);
         }
     }
 
@@ -23,12 +34,15 @@ public class GameplayTwoEnvi : MonoBehaviour
         {
             valid = false;
             anim.SetBool("isIn", false);
+            cinemachineAnim.SetBool("isIn", false);
         }
     }
 
     private void Update()
     {
-        Physics2D.SyncTransforms();
+        if (valid)
+        {
 
+        }
     }
 }
