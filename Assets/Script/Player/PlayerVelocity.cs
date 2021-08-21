@@ -59,7 +59,7 @@ public class PlayerVelocity : MonoBehaviour
 	private void Update()
 	{
 		CalculateVelocity();
-		HandleWallSliding();
+		//HandleWallSliding();
 
 		Vector3 displacement = (velocity + oldVelocity) * 0.5f * Time.deltaTime;
 		playerMovement.Move(displacement, directionalInput);

@@ -5,9 +5,6 @@ using PitchDetector;
 
 public class PlayerSinging : MonoBehaviour
 {
-    public int maxMidi = 100;
-    public int minMidi = 0;
-
     public GameObject noteIndicatorPrefab;
 
     [SerializeField] private MicrophonePitchDetector pitchDetector;
@@ -84,22 +81,15 @@ public class PlayerSinging : MonoBehaviour
         {
             foreach (var pitchVal in pitchList)
             {
-                //drawQueue.Enqueue(new PitchTime(pitchVal, duration / pitchList.Count));
+                GameTwoDraw.instance.DrawQueue(pitchVal, duration, pitchList, true);
                 valPitch = pitchVal;
             }
         }
 
-        //else if (pitchList.Count > 0 && db > dbThres && GameplayTwoEnvi.instance.valid)
-        //{
-        //    foreach (var pitchVal in pitchList)
-        //    {
-                
-        //    }
-        //}
-
         else
         {
-            //drawQueue.Enqueue(new PitchTime(0f, duration));
+            float _ = 0f;
+            GameTwoDraw.instance.DrawQueue(_, duration, pitchList, false);
             valPitch = 0;
         }
     }
