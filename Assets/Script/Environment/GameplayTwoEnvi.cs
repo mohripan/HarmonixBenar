@@ -22,9 +22,7 @@ public class GameplayTwoEnvi : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            valid = true;
-            anim.SetBool("isIn", true);
-            cinemachineAnim.SetBool("isIn", true);
+            Extraction(true);
         }
     }
 
@@ -32,17 +30,22 @@ public class GameplayTwoEnvi : MonoBehaviour
     {
         if(collision.tag == "Player")
         {
-            valid = false;
-            anim.SetBool("isIn", false);
-            cinemachineAnim.SetBool("isIn", false);
+            Extraction(false);
         }
+    }
+
+    private void Extraction(bool validasi)
+    {
+        valid = validasi;
+        anim.SetBool("isIn", validasi);
+        cinemachineAnim.SetBool("isIn", validasi);
     }
 
     private void Update()
     {
-        if (valid)
+        if (!GameTwoDraw.instance.enter)
         {
-
+            Extraction(false);
         }
     }
 }

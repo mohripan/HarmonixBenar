@@ -23,7 +23,10 @@ public class GameTwoDraw : MonoBehaviour
     private Queue<PitchTime> drawQueue = new Queue<PitchTime>();
 
     [SerializeField] private float speed;
+    [SerializeField] private float speedX;
     [SerializeField] private float secsPerScreen;
+    [SerializeField] private float currentYFollow;
+    [SerializeField] private float multiplying;
     [SerializeField] private PlayerSinging playerSinging;
     [SerializeField] private float maxY;
 
@@ -34,10 +37,20 @@ public class GameTwoDraw : MonoBehaviour
     [SerializeField] private GameObject indicatorPrefab;
     [SerializeField] private Transform followTransform;
 
-    private float apptime = 0f;
-    private float analysisTime = 0f;
+    [SerializeField] private Vector2 normalisasi;
 
-    private bool enter = false;
+    [SerializeField] private Animator anim;
+    [SerializeField] private ParticleSystem particle;
+
+    public GameObject currentLine;
+    public LineRenderer lineRenderer;
+    public EdgeCollider2D edgeCollider;
+    public List<Vector2> fingerPosition;
+
+    private bool firstSing;
+
+    internal bool enter = false;
+    private bool validasi;
 
     private void Awake()
     {
@@ -45,6 +58,11 @@ public class GameTwoDraw : MonoBehaviour
         {
             instance = this;
         }
+    }
+
+    private void Start()
+    {
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -69,25 +87,74 @@ public class GameTwoDraw : MonoBehaviour
     {
         if (enter && playerSinging.valPitch > 0)
         {
-            apptime += Time.deltaTime;
-
-            while (analysisTime < apptime && drawQueue.Count > 0)
+            if (!firstSing)
             {
-                var item = drawQueue.Dequeue();
-                var midi = RAPTPitchDetectorExtensions.HerzToFloatMidi(item.pitch);
-                if (!float.IsInfinity(midi))
-                {
-                    float y = MidiToScreenY(midi);
-                    float x = analysisTime * speed;
-                    GameObject newNote = Instantiate<GameObject>(indicatorPrefab);
-                    newNote.transform.position = new Vector3(x+offsetX, y * indicatorY+offsetY);
-                    newNote.transform.SetParent(transform, false);
-                }
-                analysisTime += item.dt;
+                CreateLine();
+                firstSing = true;
             }
 
-            MoveRight(speed * Time.deltaTime);
+            if(followTransform.localPosition.x >= 15.8f)
+            {
+                enter = false;
+                anim.SetBool("isIn", true);
+                particle.Play();
+            }
+
+            Vector2 tempFingerPos = followTransform.position;
+            if(Vector2.Distance(tempFingerPos, fingerPosition[fingerPosition.Count - 1]) > .1f)
+            {
+                UpdateLine(tempFingerPos);
+            }
+
+            //apptime += Time.deltaTime;
+
+            //while (analysisTime < apptime && drawQueue.Count > 0)
+            //{
+            //    var item = drawQueue.Dequeue();
+            //    var midi = RAPTPitchDetectorExtensions.HerzToFloatMidi(item.pitch);
+            //    if (!float.IsInfinity(midi))
+            //    {
+            //        float y = MidiToScreenY(midi);
+            //        float x = analysisTime * speed;
+            //        GameObject newNote = Instantiate<GameObject>(indicatorPrefab);
+            //        newNote.transform.position = new Vector3(x+offsetX, y * indicatorY+offsetY);
+            //        newNote.transform.SetParent(transform, false);
+            //    }
+            //    analysisTime += item.dt;
+            //}
+
+            MoveRight(speed, playerSinging.valPitch);
         }
+        else
+        {
+            firstSing = false;
+        }
+    }
+
+    private void CreateLine()
+    {
+        currentLine = Instantiate(indicatorPrefab, Vector3.zero, Quaternion.identity);
+        lineRenderer = currentLine.GetComponent<LineRenderer>();
+        edgeCollider = currentLine.GetComponent<EdgeCollider2D>();
+
+        //currentLine.transform.SetParent(followTransform);
+
+        fingerPosition.Clear();
+        fingerPosition.Add(new Vector2(followTransform.position.x, followTransform.position.y));
+        fingerPosition.Add(new Vector2(followTransform.position.x, followTransform.position.y));
+
+        lineRenderer.SetPosition(0, fingerPosition[0]);
+        lineRenderer.SetPosition(1, fingerPosition[1]);
+
+        edgeCollider.points = fingerPosition.ToArray();
+    }
+
+    private void UpdateLine(Vector2 newFingerPosition)
+    {
+        fingerPosition.Add(newFingerPosition);
+        lineRenderer.positionCount++;
+        lineRenderer.SetPosition(lineRenderer.positionCount-1, newFingerPosition);
+        edgeCollider.points = fingerPosition.ToArray();
     }
 
     public void DrawQueue(float pitchVal, float duration, List<float> pitchList, bool valid)
@@ -115,10 +182,20 @@ public class GameTwoDraw : MonoBehaviour
 
     }
 
-    private void MoveRight(float amount)
+    private void MoveRight(float amount, float pitching)
     {
         var tmp = followTransform.position;
-        tmp.x += amount;
-        followTransform.position = tmp;
+        tmp.x += speedX*Time.deltaTime;
+        normalisasi.x = tmp.x;
+        tmp.y = Mathf.Min(Mathf.SmoothStep(tmp.y, Mathf.Max(12, currentYFollow + (pitching/35) * multiplying), 100f), maxY);
+        
+        if (!validasi)
+        {
+            normalisasi.y = tmp.y;
+            validasi = true;
+        }
+
+        //Debug.Log(currentYFollow + (pitching / 35)*multiplying);
+        followTransform.position = Vector2.Lerp(followTransform.position, tmp, amount*Time.deltaTime);
     }
 }

@@ -143,8 +143,8 @@ MonoBehaviour:
   clip:
   - {fileID: 0}
   - {fileID: 8300000, guid: cb02de9f1bd09a94f80ac06eaa7f066d, type: 3}
+  - {fileID: 8300000, guid: bbd0622ad493fdf498bc4f4d3683e914, type: 3}
   - {fileID: 8300000, guid: 2480223cd506fbe44b7acbd27ae4df1d, type: 3}
-  - {fileID: 0}
 --- !u!1 &800066790
 GameObject:
   m_ObjectHideFlags: 0

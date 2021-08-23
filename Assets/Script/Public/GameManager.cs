@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public float time;
+    public bool useFade;
     public Animator anims;
     public float animTime;
 
@@ -28,6 +29,12 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(time);
             SceneManager.LoadScene(1);
+        }
+
+        if (useFade)
+        {
+            yield return new WaitForSeconds(time);
+            SceneManager.LoadScene("Level 01");
         }
     }
 
