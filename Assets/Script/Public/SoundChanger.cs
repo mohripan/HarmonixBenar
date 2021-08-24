@@ -12,7 +12,7 @@ public class SoundChanger : MonoBehaviour
     [SerializeField] private float timer;
     private void Start()
     {
-        if (changeVolume)
+        if (changeVolume && AudioManager.instance != null)
         {
             AudioManager.instance.SetVolume(1);
         }

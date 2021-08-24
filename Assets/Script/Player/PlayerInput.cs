@@ -14,7 +14,11 @@ public class PlayerInput : MonoBehaviour
 	void Update()
 	{
 		Vector2 directionalInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-		playerVelocity.SetDirectionalInput(directionalInput);
+
+        if (FirstLight.instance.readyPlaying)
+        {
+			playerVelocity.SetDirectionalInput(directionalInput);
+		}
 
 		if (Input.GetButtonDown("Jump"))
 		{
