@@ -17,7 +17,7 @@ public class KeyUI : MonoBehaviour
     {
         if(!performance)
         {
-            if (playerVelocity.playerMovement.collisionDirection.below)
+            if (playerVelocity.playerMovement.collisionDirection.below && FirstLight.instance.readyPlaying)
             {
                 transform.localScale = new Vector3(1, 1, 1);
                 performance = true;

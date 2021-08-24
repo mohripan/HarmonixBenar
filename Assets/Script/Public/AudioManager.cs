@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager instance { get; set; }
+
     private AudioSource audioSource;
     [SerializeField] private AudioClip[] clip;
     private void Awake()
     {
+        if(instance == null)
+        {
+            instance = this;
+        }
+
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -25,4 +32,11 @@ public class AudioManager : MonoBehaviour
             audioSource.Play();
         }
     }
+
+    public void SetVolume(float volume)
+    {
+        audioSource.volume = volume;
+    }
+
+    public float GetVolume() => audioSource.volume;
 }
