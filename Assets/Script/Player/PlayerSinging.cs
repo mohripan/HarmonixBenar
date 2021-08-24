@@ -81,7 +81,10 @@ public class PlayerSinging : MonoBehaviour
         {
             foreach (var pitchVal in pitchList)
             {
-                GameTwoDraw.instance.DrawQueue(pitchVal, duration, pitchList, true);
+                if (GameTwoDraw.instance != null)
+                {
+                    GameTwoDraw.instance.DrawQueue(pitchVal, duration, pitchList, true);
+                }
                 valPitch = pitchVal;
             }
         }
@@ -89,7 +92,10 @@ public class PlayerSinging : MonoBehaviour
         else
         {
             float _ = 0f;
-            GameTwoDraw.instance.DrawQueue(_, duration, pitchList, false);
+            if (GameTwoDraw.instance != null)
+            {
+                GameTwoDraw.instance.DrawQueue(_, duration, pitchList, false);
+            }
             valPitch = 0;
         }
     }
